@@ -152,8 +152,8 @@ echo $equipos;
                 </a>
 
                 <ul class="treeview-menu">
-                    <li><a href="index.php?page=reporte_general"><i class="fa fa-circle-o"></i> Tiempos muertos (Plantas)</a></li>
-                    <li><a href="index.php?page=reporte_general_plantas"><i class="fa fa-circle-o"></i> Tiempos muertos (Celdas)</a></li>
+                    <li><a href="index.php?page=reporte_general_plantas"><i class="fa fa-circle-o"></i> Tiempos muertos (Plantas)</a></li>
+                    <li><a href="index.php?page=reporte_general"><i class="fa fa-circle-o"></i> Tiempos muertos (Celdas)</a></li>
                     <!--
                     <li><a href="index.php?page=reporte_departamentos"><i class="fa fa-circle-o"></i> Tiempos muertos (visual)</a></li>
    
