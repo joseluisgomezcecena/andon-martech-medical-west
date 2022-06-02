@@ -35,6 +35,7 @@ if($puesto == 'supervisor' || $puesto == 'lider')
                         <thead>
                         <tr>
                             <th style="font-size:12px;">Id</th>
+                            <th style="font-size:12px;">Prioridad</th>
                             <th style="font-size:12px;width: 90px;">Equipo</th>
                             <th style="font-size:12px;">Planta</th>
                             <th style="font-size:12px;">Ubicación</th>
@@ -79,12 +80,12 @@ if($puesto == 'supervisor' || $puesto == 'lider')
                                 $error = "AND tipo_error = 'produccion'";
                             }
                            
-                            $query = mysqli_query($connection,"SELECT * FROM martech_fallas WHERE atendido_flag = 'no' $error LIMIT 50");    
+                            $query = mysqli_query($connection,"SELECT * FROM martech_fallas WHERE atendido_flag = 'no' $error ORDER BY prioridad DESC LIMIT 50");
                         
                         }
                         else
                         {
-                            $query = mysqli_query($connection,"SELECT * FROM martech_fallas WHERE atendido_flag = 'no' LIMIT 50");    
+                            $query = mysqli_query($connection,"SELECT * FROM martech_fallas WHERE atendido_flag = 'no' ORDER BY prioridad DESC LIMIT 50");
                         }
                         
                         while($row = mysqli_fetch_array($query))
@@ -134,6 +135,14 @@ if($puesto == 'supervisor' || $puesto == 'lider')
 
 
 
+                            if($row['prioridad'] == 0)
+                            {
+                                $prioridad = "N/A";
+                            }
+                            else
+                            {
+                                $prioridad = $row['prioridad'];
+                            }
                             
 
                             //$start_date = new DateTime('2007-09-01 04:10:58');
@@ -156,6 +165,7 @@ if($puesto == 'supervisor' || $puesto == 'lider')
                             $tabla = <<<DELIMITER
                         <tr>
                             <td style="font-size:12px;">{$row['id']}</td>
+                            <td style="font-size:12px;">$prioridad</td>
                             <td style="font-size:12px;">{$row['maquina_nombre']}<br/><br></td>
                             <td style="font-size:12px;">{$row['planta_nombre']}<br>{$parte}<br>{$orden}</td>
                             <td style="font-size:12px;">{$row['departamento_nombre']}</td>
@@ -176,6 +186,7 @@ DELIMITER;
                         <tfoot>
                         <tr>
                             <th style="font-size:12px;">Id</th>
+                            <th style="font-size:12px;">Prioridad</th>
                             <th style="font-size:12px;width: 90px;">Equipo</th>
                             <th style="font-size:12px;">Planta</th>
                             <th style="font-size:12px;">Ubicación</th>
@@ -215,6 +226,7 @@ DELIMITER;
                         <thead>
                         <tr>
                             <th style="font-size:12px;">Id</th>
+                            <th style="font-size:12px;">Prioridad</th>
                             <th style="font-size:12px;width: 90px;">Equipo</th>
                             <th style="font-size:12px;">Planta</th>
                             <th style="font-size:12px;">Ubicación</th>
@@ -314,8 +326,17 @@ DELIMITER;
                             }
 
 
+                            if($row['prioridad'] == 0)
+                            {
+                             $prioridad = "N/A";
+                            }
+                            else
+                            {
+                                $prioridad = $row['prioridad'];
+                            }
 
-                            //$start_date = new DateTime('2007-09-01 04:10:58');
+
+                        //$start_date = new DateTime('2007-09-01 04:10:58');
                             //$since_start = $start_date->diff(new DateTime('2012-09-11 10:25:00'));
 
                             $start_date = new DateTime($row['inicio']);
@@ -335,6 +356,7 @@ DELIMITER;
                             $tabla = <<<DELIMITER
                         <tr>
                             <td style="font-size:12px;">{$row['id']}</td>
+                            <td style="font-size:12px;">$prioridad</td>
                             <td style="font-size:12px;">{$row['maquina_nombre']}<br/><br></td>
                             <td style="font-size:12px;">{$row['planta_nombre']}<br>{$parte}<br>{$orden}</td>
                             <td style="font-size:12px;">{$row['departamento_nombre']}</td>
@@ -356,6 +378,7 @@ DELIMITER;
                         <tfoot>
                         <tr>
                             <th style="font-size:12px;">Id</th>
+                            <th style="font-size:12px;">Prioridad</th>
                             <th style="font-size:12px;">Equipo</th>
                             <th style="font-size:12px;">Planta</th>
                             <th style="font-size:12px;">Ubicación</th>

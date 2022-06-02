@@ -70,9 +70,9 @@
                                 ?>
                                     <option ><?php echo $row_sql['user_nombre']." ".$row_sql['user_apellido']; ?></option>
                                 <?php endwhile; ?>
-<option>BENJAMIN CHACON</option>
-<option>JAIME MORALES</option>
-				    <option>MARTIN HUARAQUI</option>
+                                <option>BENJAMIN CHACON</option>
+                                <option>JAIME MORALES</option>
+                                <option>MARTIN HUARAQUI</option>
                                
 
 
@@ -144,43 +144,43 @@
 
                                 
                                 <optgroup label="Planta 3 Moldeo">
-                                <option>SETUP Y/O REINICIO</option>
-                                <option>MONTAR E INICIAR</option>
-                                <option>MONTAR </option>
-                                <option>E.F.M. (CONTAMINACION)</option>
-                                <option>REVISAR MOLDE (ATORADO, NO BAJA)</option>
-                                <option>SHORT SHOT</option>
-                                <option>FLASH</option>
-                                <option>PINCH</option>
-                                <option>BUBBLE</option>
-                                <option>MALA ALINEACION</option>
-                                <option>DAÑO DE PINS</option>
-                                <option>HUNDIMIENTO</option>
-                                <option>FALLA DE LUER</option>
-                                <option>DAÑO EN CUERPO</option>
-                                <option>CRACK</option>
-                                <option>PIEZAS DESPEGADAS</option>
-                                <option>CAMBIO DE HUARACHE</option>
-                                <option>FUGAS DE AGUA</option>
-                                <option>PURGAR Y APAGAR</option>
-                                <option>CAMBIO DE TORNILLO</option>
-                                <option>LIMPIEZA DE CRYO</option>
-                                <option>HACER MEZCLA Y/O MASTER BATCH</option>
-                                <option>LIMPIEZA DE VASITO</option>
-                                <option>HACER IRR</option>
-                                <option>PIEZAS VETEADAS </option>
-                                <option>CAMBIO DE FELPA PULIDORA</option>
-                                <option>CAMBIO DE PANTALLA</option>
-                                <option>CAMBIO DE ALCOHOL EN TANQUE</option>
-                                <option>AFILADO DE BROCAS</option>
-                                <option>CAMBIO DE BROCAS</option>
-                                <option>CAMBIO DE NAVAJA</option>
-<option>IMPRESION INCOMPLETA</option>
-<option>CORTE FUERA DE ESPECIFICACION</option>
-<option>ALARMADA(RESET)</option>
-<option>DIMENSION FUERA DE ESPECIFICACION</option>
-<option>EXTRACCION DE NAVAJAS F-16531-1</option>
-<option>EXTRACCION DE NAVAJA F-16531-2</option>
+                                    <option>SETUP Y/O REINICIO</option>
+                                    <option>MONTAR E INICIAR</option>
+                                    <option>MONTAR </option>
+                                    <option>E.F.M. (CONTAMINACION)</option>
+                                    <option>REVISAR MOLDE (ATORADO, NO BAJA)</option>
+                                    <option>SHORT SHOT</option>
+                                    <option>FLASH</option>
+                                    <option>PINCH</option>
+                                    <option>BUBBLE</option>
+                                    <option>MALA ALINEACION</option>
+                                    <option>DAÑO DE PINS</option>
+                                    <option>HUNDIMIENTO</option>
+                                    <option>FALLA DE LUER</option>
+                                    <option>DAÑO EN CUERPO</option>
+                                    <option>CRACK</option>
+                                    <option>PIEZAS DESPEGADAS</option>
+                                    <option>CAMBIO DE HUARACHE</option>
+                                    <option>FUGAS DE AGUA</option>
+                                    <option>PURGAR Y APAGAR</option>
+                                    <option>CAMBIO DE TORNILLO</option>
+                                    <option>LIMPIEZA DE CRYO</option>
+                                    <option>HACER MEZCLA Y/O MASTER BATCH</option>
+                                    <option>LIMPIEZA DE VASITO</option>
+                                    <option>HACER IRR</option>
+                                    <option>PIEZAS VETEADAS </option>
+                                    <option>CAMBIO DE FELPA PULIDORA</option>
+                                    <option>CAMBIO DE PANTALLA</option>
+                                    <option>CAMBIO DE ALCOHOL EN TANQUE</option>
+                                    <option>AFILADO DE BROCAS</option>
+                                    <option>CAMBIO DE BROCAS</option>
+                                    <option>CAMBIO DE NAVAJA</option>
+                                    <option>IMPRESION INCOMPLETA</option>
+                                    <option>CORTE FUERA DE ESPECIFICACION</option>
+                                    <option>ALARMADA(RESET)</option>
+                                    <option>DIMENSION FUERA DE ESPECIFICACION</option>
+                                    <option>EXTRACCION DE NAVAJAS F-16531-1</option>
+                                    <option>EXTRACCION DE NAVAJA F-16531-2</option>
                                 </optgroup>
 
                             </select>
@@ -196,6 +196,33 @@
 
 
 
+                        <div class="form-group" id="prioridad">
+                            <label>Prioridad</label><br />
+                            <select  class="form-control prioridad" name="prioridad" id="prioridad-input">
+                                <option value="">Seleccione prioridad</option>
+                                <?php
+                                for ($x = 1; $x<=50; $x++):
+
+                                    $query_prioridad = "SELECT * FROM martech_fallas 
+                                    WHERE descripcion_operador = 'MONTAR E INICIAR' AND offline = 'si' AND prioridad = '$x'";
+                                    $run_query_prioridad = mysqli_query($connection, $query_prioridad);
+                                    $num = mysqli_num_rows($run_query_prioridad);
+                                ?>
+                                    <?php
+                                    if($num == 0):
+                                    ?>
+
+                                        <option  value="<?php echo $x ?>"><?php echo $x ?></option>
+
+                                    <?php endif; ?>
+
+                                <?php endfor; ?>
+                            </select>
+
+                            <!--
+                            <input type="number" min="1" step="1" class="form-control prioridad" name="prioridad" id="prioridad-input">
+                            -->
+                        </div>
 
 
                         <div class="form-group">
@@ -205,7 +232,16 @@
 
                         <div class="form-group">
                             <label>Numero de parte</label><br />
-                            <input type="text" class="form-control" name="parte" required>
+                            <input type="text" class="form-control" name="parte" list="partes" required>
+                            <datalist id="partes">
+                                <?php
+                                $query_parts = "SELECT * FROM activeparts";
+                                $result_query_parts = mysqli_query($connection, $query_parts);
+                                while ($row_parts = mysqli_fetch_array($result_query_parts)):
+                                ?>
+                                    <option value="<?php echo $row_parts['COL 1'] ?>"><?php echo $row_parts['COL 1'] ?></option>
+                                <?php endwhile; ?>
+                            </datalist>
                         </div>
                         
                         <input type="hidden" value="setup" name="tipo_de_error">
@@ -235,3 +271,29 @@
     </div><!--modal-dialog end-->
 
 </div><!-- Termina Modal -->
+
+<!--
+<option>SETUP Y/O REINICIO</option>
+<option>MONTAR E INICIAR</option>
+-->
+<script>
+
+    document.getElementById("prioridad").style.display = 'none';
+
+    document.getElementById("descripcion").onchange = function() {
+        console.log("activado");
+
+        var descripcion = document.getElementById("descripcion").value;
+        if (descripcion === "MONTAR E INICIAR")
+        {
+            document.getElementById("prioridad").style.display = 'block';
+            document.getElementById("prioridad-input").setAttribute("required", "");
+
+        }
+        else{
+            document.getElementById("prioridad").style.display = 'none';
+            document.getElementById("prioridad-input").removeAttribute("required");
+        }
+
+    }
+</script>

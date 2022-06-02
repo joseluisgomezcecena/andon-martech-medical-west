@@ -189,8 +189,19 @@ function registrarError()
         $inicio                 = date("Y-m-d H:i:s");
 
 
-        if($error != 'ensamble')
-        {
+            echo $_POST['prioridad'];
+            //para prioridad en MONTAR E INICIAR
+            if($_POST['descripcion'] == 'MONTAR E INICIAR')
+            {
+                $prioridad = $_POST['prioridad'];
+            }
+            else
+            {
+                $prioridad = 0;
+            }
+
+            echo $prioridad;
+
 
             //informacion de la maquina query
             $select_machine_data = mysqli_query($connection, "SELECT nombre, planta_id, departamento_id, centro_trabajo, serie, numero_control FROM martech_maquinas WHERE id = $maquina_id");
@@ -210,22 +221,7 @@ function registrarError()
             $maquina_numero_control = $row['numero_control'];
             
             /*****************************datos de base de datos*******************/
-        }
-        else
-        {
-            $maquina_nombre = $_POST[''];
 
-            $planta_id              = $_POST['planta_id'];
-            
-            $departamento_id        = $_POST['departamento_id'];//departamento para enviar el correo
-                    
-            $maquina_centro_trabajo = $_POST['centro_trabajo'];
-            
-            $maquina_serie          = $_POST['serie'];
-            
-            $maquina_numero_control = $_POST['numero_control'];
-
-        }
         
 
          //plantas
@@ -246,10 +242,10 @@ function registrarError()
 
          $query = "INSERT INTO martech_fallas (inicio, offline, maquina_id, maquina_nombre, planta_id, departamento_id,  maquina_centro_trabajo, 
         maquina_serie, maquina_numero_control,  tipo_error, descripcion_operador, planta_nombre, departamento_nombre, escala_1, info_departamento, 
-        folio_mantenimiento,  parte, orden)
+        folio_mantenimiento,  parte, orden, prioridad)
         VALUES ('$inicio', 'si', $maquina_id, '$maquina_nombre', $planta_id, $departamento_id,  '$maquina_centro_trabajo', '$maquina_serie', 
         '$maquina_numero_control',  '$error', '$mensaje', '$nombre_planta', '$nombre_departamento','si', '$info_departamento', 
-        '$folio_mantenimiento',  '$parte', '$orden')";
+        '$folio_mantenimiento',  '$parte', '$orden', '$prioridad')";
         
         $result = mysqli_query($connection, $query);
 

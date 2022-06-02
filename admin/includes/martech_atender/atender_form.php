@@ -88,7 +88,7 @@ atenderFalla();
 
 
                                         <?php 
-                                        if($tipo == "setup")
+                                        if($tipo == "setup" || $tipo == "ensamble")
                                         {
                                         ?>
                                         <input type="hidden" name="error_operador" value="no">
@@ -135,7 +135,31 @@ atenderFalla();
                                         </div>
                                             <?php } ?>
 
-                                        
+
+
+                                        <?php if($tipo == "ensamble"){  ?>
+
+
+
+                                            <div class="form-group">
+                                                <label>Quien atiende</label>
+                                                <select class="form-control" name="atiende" id="atiende" required>
+                                                    <?php
+                                                    $get_tecnicos = "SELECT * FROM tecnicos_ensamble";
+                                                    $run_get = mysqli_query($connection, $get_tecnicos);
+                                                    while($row = mysqli_fetch_array($run_get))
+                                                    {
+                                                        echo "<option>".$row['user_name']."</option>";
+                                                    }
+                                                    ?>
+                                                </select>
+                                                <small>Campo opcional</small>
+                                            </div>
+                                        <?php } ?>
+
+
+
+
                                         <div class="form-group" id="descripcion_atencion">
                                             <label>Descripción (Opcional)</label>
                                             <textarea name="descripcion" class="form-control" ></textarea>

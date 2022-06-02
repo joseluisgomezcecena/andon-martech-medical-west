@@ -93,6 +93,73 @@ $(document).ready(function(){
 </script>
 
 
+<script>
+    //ensamble
+    $(document).ready(function(){
+
+        //primer nivel
+        $('#first_level_a').multiselect({
+            nonSelectedText:'Seleccione Planta',
+            buttonWidth:'100%',
+            onChange:function(option, checked){
+                $('#second_level_a').html('');
+                $('#second_level_a').multiselect('rebuild');
+                $('#third_level_a').html('');
+                $('#third_level_a').multiselect('rebuild');
+                var selected = this.$select.val();
+                if(selected.length > 0)
+                {
+                    $.ajax({
+                        url:"functions/segundo_a.php",
+                        method:"POST",
+                        data:{selected:selected},
+                        success:function(data)
+                        {
+                            $('#second_level_a').html(data);
+                            $('#second_level_a').multiselect('rebuild');
+                        }
+                    })
+                }
+            }
+        });
+
+        //segundo nivel
+        $('#second_level_a').multiselect({
+            nonSelectedText: 'Seleccione Departamento',
+            buttonWidth:'100%',
+            onChange:function(option, checked)
+            {
+                $('#third_level_a').html('');
+                $('#third_level_a').multiselect('rebuild');
+                var selected = this.$select.val();
+                if(selected.length > 0)
+                {
+                    $.ajax({
+                        url:"functions/tercero_a.php",
+                        method:"POST",
+                        data:{selected:selected},
+                        success:function(data)
+                        {
+                            $('#third_level_a').html(data);
+                            $('#third_level_a').multiselect('rebuild');
+                        }
+                    });
+                }
+            }
+        });
+
+        //tercer nivel
+        $('#third_level_a').multiselect({
+            nonSelectedText: 'Seleccione Maquina',
+            buttonWidth:'100%'
+        });
+
+    });
+
+
+
+</script>
+
 
 <script>
 

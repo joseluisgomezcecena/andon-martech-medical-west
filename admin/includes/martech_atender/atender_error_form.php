@@ -64,6 +64,11 @@ fixFalla();
                         echo "<div class='col-lg-12 bg-danger text-danger text-center'><h2>Error en Contraseña</h2></div>";
                     }
 
+                    elseif($error == "ocupado")
+                    {
+                        echo "<div class='col-lg-12 bg-danger text-danger text-center'><h2>No se puede antender 2 eventos al mismo tiempo.</h2></div>";
+                    }
+
                     elseif($error == "true")
                     {
                         echo "<div class='col-lg-12 bg-danger text-danger text-center'><h2>Error en query de bd</h2></div>";
@@ -121,6 +126,25 @@ fixFalla();
                                                 <small>Campo opcional</small>
                                             </div>
                                         <?php } ?>
+
+
+                                        <?php if($tipo == "ensamble"){  ?>
+                                            <div class="form-group">
+                                                <label>Quien atiende</label>
+                                                <select class="form-control" name="resolvio" id="resolvio" required>
+                                                    <?php
+                                                    $get_tecnicos = "SELECT * FROM tecnicos_ensamble";
+                                                    $run_get = mysqli_query($connection, $get_tecnicos);
+                                                    while($row = mysqli_fetch_array($run_get))
+                                                    {
+                                                        echo "<option>".$row['user_name']."</option>";
+                                                    }
+                                                    ?>
+                                                </select>
+                                                <small>Campo opcional</small>
+                                            </div>
+                                        <?php } ?>
+
 
                                         
                                         <div class="form-group" id="descripcion_atencion">

@@ -24,7 +24,7 @@ die("Error de conexion con base de datos Andon.");
 
 }
 
-
+/*
 $connection3 = mysqli_connect(DB_HOST3, DB_USER3, DB_PASS3, DB_NAME3);
 
 if(!$connection3)
@@ -34,8 +34,7 @@ if(!$connection3)
 die("Error de conexion con base de datos Hr x Hr.");
 
 }
-
-
+*/
 
 
 

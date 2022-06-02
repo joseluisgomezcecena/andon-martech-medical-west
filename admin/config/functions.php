@@ -240,7 +240,7 @@ function fixFalla()
         $row_data = mysqli_fetch_array($error_data);
         $tipo = $row_data['tipo_error'];
         
-        if($tipo == "setup")
+        if($tipo == "setup" || $tipo == "ensamble")
         {
             $resolvio           = $_POST['resolvio'];
         }
@@ -270,6 +270,21 @@ function fixFalla()
 
             if($passwd == $contraproduccion)
             {
+
+
+                //si es de ensamble no puede atender 2 al mismo tiempo.
+                if($tipo == "ensamble")
+                {
+                    $query_ocupado = "SELECT * FROM martech_fallas WHERE atendio = '$resolvio' AND offline = 'si'";
+                    $run_ocupado = mysqli_query($connection, $query_ocupado);
+                    if(mysqli_num_rows($connection))
+                    {
+                        header("Location: index.php?page=error_atender_resolver&id=$id&atencion=true&error=ocupado");
+                    }
+                }
+
+
+
 
                 $query = "UPDATE martech_fallas SET fin = '$hora', descripcion_solucion = '$descripcion', offline = 'no', resolvio = '$resolvio',
                 sesion = '$sesion' WHERE id = $id;";
