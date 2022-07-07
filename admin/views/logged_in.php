@@ -316,12 +316,12 @@ DELIMITER;
 			    if($row['tipo_error'] == "falta_material" || $row['tipo_error'] == "reemplazo")
                             {
 
-                                $parte = "Detalles:".$row['descripcion_operador'];  
+                                $parte_mat = "Detalles:".$row['descripcion_operador'];
                                
                             }
                             else
                             {
-                                $parte = "";  
+                                $parte_mat = "";
                                 
                             }
 
@@ -358,7 +358,7 @@ DELIMITER;
                             <td style="font-size:12px;">{$row['id']}</td>
                             <td style="font-size:12px;">$prioridad</td>
                             <td style="font-size:12px;">{$row['maquina_nombre']}<br/><br></td>
-                            <td style="font-size:12px;">{$row['planta_nombre']}<br>{$parte}<br>{$orden}</td>
+                            <td style="font-size:12px;">{$row['planta_nombre']}<br>{{$parte}$parte_mat}<br>{$orden}</td>
                             <td style="font-size:12px;">{$row['departamento_nombre']}</td>
                             <td style="font-size:12px;">{$row['tipo_error']}<br>{$folio}</td>
                             <td style="font-size:12px;">{$row['descripcion_operador']}</td>
