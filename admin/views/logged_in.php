@@ -358,7 +358,7 @@ DELIMITER;
                             <td style="font-size:12px;">{$row['id']}</td>
                             <td style="font-size:12px;">$prioridad</td>
                             <td style="font-size:12px;">{$row['maquina_nombre']}<br/><br></td>
-                            <td style="font-size:12px;">{$row['planta_nombre']}<br>{{$parte}$parte_mat}<br>{$orden}</td>
+                            <td style="font-size:12px;">{$row['planta_nombre']}<br>{$parte}{$parte_mat}<br>{$orden}</td>
                             <td style="font-size:12px;">{$row['departamento_nombre']}</td>
                             <td style="font-size:12px;">{$row['tipo_error']}<br>{$folio}</td>
                             <td style="font-size:12px;">{$row['descripcion_operador']}</td>
