@@ -317,9 +317,14 @@ function fixFalla()
 
 
 
-
 function reportarFalta()
 {
+
+    if(true)
+    {
+        return;
+    }
+
     global $connection;
 
     if(isset($_POST['submit_falta']))
@@ -330,10 +335,10 @@ function reportarFalta()
 
         $hora           = date("Y-m-d H:i:s");
         $sesion        = $_SESSION['user_name'];
-        
+
         $error_data = mysqli_query($connection, "SELECT * FROM martech_fallas WHERE id = $id");
         $row_data = mysqli_fetch_array($error_data);
-        
+
         $tipo = $row_data['tipo_error'];
         $orden = $row_data['orden'];
         $parte = $row_data['parte'];
@@ -344,7 +349,7 @@ function reportarFalta()
         if($confirmar == 'si')
         {
             /*
-            $query = "UPDATE martech_fallas SET atendido = '$hora', descripcion_encargado = '$descripcion', atendido_flag = 'si', atendio = '$atendio' , sesion = '$sesion' WHERE id = $id;";    
+            $query = "UPDATE martech_fallas SET atendido = '$hora', descripcion_encargado = '$descripcion', atendido_flag = 'si', atendio = '$atendio' , sesion = '$sesion' WHERE id = $id;";
             $result = mysqli_query($connection, $query);
             if($result)
             {
@@ -358,15 +363,15 @@ function reportarFalta()
             */
 
             /*
-            $get_responsible = "SELECT DISTINCT user_name, user_email, id_departamento, nombre FROM users 
-            LEFT JOIN martech_usuario_departamento ON users.user_id = martech_usuario_departamento.id_usuario 
+            $get_responsible = "SELECT DISTINCT user_name, user_email, id_departamento, nombre FROM users
+            LEFT JOIN martech_usuario_departamento ON users.user_id = martech_usuario_departamento.id_usuario
             LEFT JOIN martech_departamentos ON martech_usuario_departamento.id_departamento = martech_departamentos.id
             WHERE users.user_puesto = 'supervisor' AND martech_departamentos.planta_id = $planta_id";
             */
 
             /*
-            $get_responsible = "SELECT DISTINCT user_name, user_email, id_departamento, nombre FROM users 
-            LEFT JOIN martech_usuario_departamento ON users.user_id = martech_usuario_departamento.id_usuario 
+            $get_responsible = "SELECT DISTINCT user_name, user_email, id_departamento, nombre FROM users
+            LEFT JOIN martech_usuario_departamento ON users.user_id = martech_usuario_departamento.id_usuario
             LEFT JOIN martech_departamentos ON martech_usuario_departamento.id_departamento = martech_departamentos.id
             WHERE users.user_puesto = 'supervisor' AND martech_departamentos.planta_id = $planta_id AND martech_departamentos.id = $departamento_id";
             */
@@ -387,63 +392,63 @@ function reportarFalta()
                 echo $row['user_email'] . "<br><br/>";
                 //echo $row['user_name'] . " " . $row['id_departamento']. " ".$row['nombre'] . "<br><br/>";
 
-                
+
                 $destino_s = $row['user_email'];
-                //$destino_s = "jgomez@martechmedical.com";    
+                //$destino_s = "jgomez@martechmedical.com";
 
                 require 'mail/vendor/autoload.php';
 
                 $mail = new PHPMailer(true);                                        // Passing `true` enables exceptions
                 try {
-                        $mail->SMTPDebug = 0;                                               // Enable verbose debug output
-                        $mail->isSMTP(false);                                                    // Set mailer to use SMTP
-                        $mail->Host = '192.168.2.8;192.168.2.8';        	// Specify main and backup SMTP servers
-                        $mail->SMTPAuth = false;                                             // Enable SMTP authentication
-                        $mail->Username = 'jgomez@martechmedical.com';               // SMTP username
-                        $mail->Password = 'joseLuis15!';                               // SMTP password
-                        $mail->SMTPSecure = 'tls';                                      // Enable TLS encryption, `ssl` also accepted
-                        $mail->Port = 25;                                              // TCP port to connect to 587
-                        //antes en 465
-                        $mail->SMTPOptions = array(
-                            'ssl' => array(
+                    $mail->SMTPDebug = 0;                                               // Enable verbose debug output
+                    $mail->isSMTP(false);                                                    // Set mailer to use SMTP
+                    $mail->Host = '192.168.2.8;192.168.2.8';        	// Specify main and backup SMTP servers
+                    $mail->SMTPAuth = false;                                             // Enable SMTP authentication
+                    $mail->Username = 'jgomez@martechmedical.com';               // SMTP username
+                    $mail->Password = 'joseLuis15!';                               // SMTP password
+                    $mail->SMTPSecure = 'tls';                                      // Enable TLS encryption, `ssl` also accepted
+                    $mail->Port = 25;                                              // TCP port to connect to 587
+                    //antes en 465
+                    $mail->SMTPOptions = array(
+                        'ssl' => array(
                             'verify_peer' => false,
                             'verify_peer_name' => false,
                             'allow_self_signed' => true
-                            )
-                        );
+                        )
+                    );
 
-                        //Recipients
-                        $mail->setFrom('jgomez@martechmedical.com', 'Orden no esta en Almacen');
-                        
-                        $mail->addAddress($destino_s, 'Responsable');                   // Add a recipient
-                                            
-                        $mail->addReplyTo('noreply@martechmedical.com', 'Andon System');
-                        
+                    //Recipients
+                    $mail->setFrom('jgomez@martechmedical.com', 'Orden no esta en Almacen');
 
-                    
+                    $mail->addAddress($destino_s, 'Responsable');                   // Add a recipient
 
-                        //Content
-                        $mail->isHTML(true);                                  
-                        $mail->Subject = "Falta Material Orden: $orden, #Parte: $parte";
-                        $mail->Body    = "Falta Material Orden: $orden<br>#Parte: $parte<br><br>Mensaje Andon:$descripcion_operador<br><br>Mensaje de Almacen:$descripcion";
-                        $mail->AltBody = "Falta Material Orden: $orden<br>#Parte: $parte<br><br/>Mensaje Andon:$descripcion_operador<br><br/>Mensaje de Almacen:$descripcion";
+                    $mail->addReplyTo('noreply@martechmedical.com', 'Andon System');
 
-                        $mail->send();
-                        echo 'Message has been sent';
-                    } catch (Exception $e) {
-                        echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
-                    }
-                
-                    
+
+
+
+                    //Content
+                    $mail->isHTML(true);
+                    $mail->Subject = "Falta Material Orden: $orden, #Parte: $parte";
+                    $mail->Body    = "Falta Material Orden: $orden<br>#Parte: $parte<br><br>Mensaje Andon:$descripcion_operador<br><br>Mensaje de Almacen:$descripcion";
+                    $mail->AltBody = "Falta Material Orden: $orden<br>#Parte: $parte<br><br/>Mensaje Andon:$descripcion_operador<br><br/>Mensaje de Almacen:$descripcion";
+
+                    $mail->send();
+                    echo 'Message has been sent';
+                } catch (Exception $e) {
+                    echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
+                }
+
+
 
             }
 
-                //$update = "UPDATE martech_fallas SET atendido = '$hora', descripcion_encargado = '$descripcion', atendido_flag = 'si', atendio = '$sesion' , sesion = '$sesion' WHERE id = $id;";
-                $update = "UPDATE martech_fallas SET fin = '$hora', descripcion_solucion = '$descripcion', offline = 'no', resolvio = '$sesion' , sesion = '$sesion' WHERE id = $id;";    
-                $result_update = mysqli_query($connection, $update);
+            //$update = "UPDATE martech_fallas SET atendido = '$hora', descripcion_encargado = '$descripcion', atendido_flag = 'si', atendio = '$sesion' , sesion = '$sesion' WHERE id = $id;";
+            $update = "UPDATE martech_fallas SET fin = '$hora', descripcion_solucion = '$descripcion', offline = 'no', resolvio = '$sesion' , sesion = '$sesion' WHERE id = $id;";
+            $result_update = mysqli_query($connection, $update);
 
 
-                //header("Location: index.php");
+            //header("Location: index.php");
 
         }
         else
@@ -453,6 +458,7 @@ function reportarFalta()
         }
     }
 }
+
 
 
 

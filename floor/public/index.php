@@ -19,6 +19,10 @@ if(isset($_POST['setup']))
     include("../includes/setup.php");
 }
 
+if(isset($_POST['armado']))
+{
+    include("../includes/armado.php");
+}
 
 if(isset($_POST['falta_material']))
 {
@@ -102,7 +106,14 @@ registrarError();
             </div>
 
 
-            <!--*******************************************MATERIAL********************-->
+
+            <div class="col-lg-6 col-md-6 col-sm-12 espacios">
+                <!-- boton -->
+                <button type="submit" class="btn btn-primary btn-lg btn-block btn-flat" name="armado" data-toggle="modal" >Armado de Molde</button>
+            </div>
+
+
+                <!--*******************************************MATERIAL********************-->
             
             
             <div class="col-lg-6 col-md-6 col-sm-12 espacios">

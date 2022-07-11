@@ -56,7 +56,33 @@ function registrarError()
         }
 
 
-        
+
+        if($error == 'armado')
+        {
+
+            $responsable = 'maquinas';
+
+            $linea_manual = $_POST['linea_manual'];
+
+            $parte        = $_POST['parte'];
+
+            $orden        = $_POST['orden'];
+
+            if(strlen($linea_manual)>0)
+            {
+                $linea_m = "Linea y maquina: ".$linea_manual;
+            }
+            else
+            {
+                $linea_m = "";
+            }
+
+            $info_departamento = " $linea_m \r\n Capturado por: $capturado ";
+        }
+
+
+
+
         elseif($error == 'caida' || $error == 'agua' || $error == 'energia' )
         {
             $responsable = 'mantenimiento';
@@ -158,7 +184,7 @@ function registrarError()
         }
 
 
-        if($error == 'ensamble')
+        elseif($error == 'ensamble')
         {
 
             $responsable = 'ensamble';
@@ -183,6 +209,8 @@ function registrarError()
         }
 
 
+
+
         
         $mensaje                = $_POST['descripcion']." ".$desc;
         $maquina_id             = $_POST['third_level'];
@@ -201,6 +229,9 @@ function registrarError()
             }
 
             echo $prioridad;
+
+
+
 
 
             //informacion de la maquina query
@@ -240,7 +271,7 @@ function registrarError()
         
          //insertando en base de datos antes de mandar correo evitando error a los 100 correos.
 
-         $query = "INSERT INTO martech_fallas (inicio, offline, maquina_id, maquina_nombre, planta_id, departamento_id,  maquina_centro_trabajo, 
+        $query = "INSERT INTO martech_fallas (inicio, offline, maquina_id, maquina_nombre, planta_id, departamento_id,  maquina_centro_trabajo, 
         maquina_serie, maquina_numero_control,  tipo_error, descripcion_operador, planta_nombre, departamento_nombre, escala_1, info_departamento, 
         folio_mantenimiento,  parte, orden, prioridad)
         VALUES ('$inicio', 'si', $maquina_id, '$maquina_nombre', $planta_id, $departamento_id,  '$maquina_centro_trabajo', '$maquina_serie', 
