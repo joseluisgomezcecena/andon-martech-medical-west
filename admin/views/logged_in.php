@@ -10,7 +10,7 @@ if($puesto == 'supervisor' || $puesto == 'lider')
 
 <section class="content-header">
     <h1>
-        Inicio 
+        Inicio
         <small>Panel de control </small>
     </h1>
     <ol class="breadcrumb">
@@ -121,6 +121,16 @@ if($puesto == 'supervisor' || $puesto == 'lider')
                                 $orden = "";
                             }
 
+                            if($row['tipo_error'] == "armado" )
+                            {
+
+                                $parte_molde = "Parte:".$row['parte'];
+                            }
+                            else
+                            {
+                                $parte_molde = "";
+                            }
+
 			                if($row['tipo_error'] == "falta_material" || $row['tipo_error'] == "reemplazo")
                             {
 
@@ -167,7 +177,7 @@ if($puesto == 'supervisor' || $puesto == 'lider')
                             <td style="font-size:12px;">{$row['id']}</td>
                             <td style="font-size:12px;">$prioridad</td>
                             <td style="font-size:12px;">{$row['maquina_nombre']}<br/><br></td>
-                            <td style="font-size:12px;">{$row['planta_nombre']}<br>{$parte}{$parte_mat}<br>{$orden}</td>
+                            <td style="font-size:12px;">{$row['planta_nombre']}<br>{$parte}{$parte_mat}{$parte_molde}<br>{$orden}</td>
                             <td style="font-size:12px;">{$row['departamento_nombre']}</td>
                             <td style="font-size:12px;">{$row['tipo_error']}<br>{$folio}</td>
                             <td style="font-size:12px;">{$row['descripcion_operador']}</td>
@@ -313,6 +323,17 @@ DELIMITER;
                             }
 
 
+                            if($row['tipo_error'] == "armado" )
+                            {
+
+                                $parte_molde = "Parte:".$row['parte'];
+                            }
+                            else
+                            {
+                                $parte_molde = "";
+                            }
+
+
 			    if($row['tipo_error'] == "falta_material" || $row['tipo_error'] == "reemplazo")
                             {
 
@@ -358,7 +379,7 @@ DELIMITER;
                             <td style="font-size:12px;">{$row['id']}</td>
                             <td style="font-size:12px;">$prioridad</td>
                             <td style="font-size:12px;">{$row['maquina_nombre']}<br/><br></td>
-                            <td style="font-size:12px;">{$row['planta_nombre']}<br>{$parte}{$parte_mat}<br>{$orden}</td>
+                            <td style="font-size:12px;">{$row['planta_nombre']}<br>{$parte}{$parte_mat}{$parte_molde}<br>{$orden}</td>
                             <td style="font-size:12px;">{$row['departamento_nombre']}</td>
                             <td style="font-size:12px;">{$row['tipo_error']}<br>{$folio}</td>
                             <td style="font-size:12px;">{$row['descripcion_operador']}</td>
