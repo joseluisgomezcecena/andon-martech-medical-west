@@ -25,7 +25,6 @@ $error_data = mysqli_query($connection, "SELECT * FROM martech_fallas WHERE id =
 $row_data = mysqli_fetch_array($error_data);
 $tipo = $row_data['tipo_error'];
 
-fixFalla();
 
 
 ?>
@@ -73,6 +72,11 @@ fixFalla();
                     {
                         echo "<div class='col-lg-12 bg-danger text-danger text-center'><h2>Error en query de bd</h2></div>";
                     }
+
+                    elseif($error == "calidad")
+                    {
+                        echo "<div class='col-lg-12 bg-danger text-danger text-center'><h2>Error en query de bd</h2></div>";
+                    }
                 
                     else
                     {
@@ -82,6 +86,7 @@ fixFalla();
                     ?>
 
 
+                    <?php fixFalla(); ?>
 
                     <section <?php echo $display ?> class="content">
                         <div class="row">

@@ -249,6 +249,9 @@ function fixFalla()
             $resolvio           = $sesion;
         }
 
+        $opcion = $row_data['descripcion_operador'];
+
+
 
 
         if(strlen($descripcion)<1)
@@ -292,7 +295,60 @@ function fixFalla()
     
                 if($result)
                 {
-                    header("Location: index.php?page=error_atender_resolver&id=$id&atencion=true&error=false");
+                    if($opcion == 'MONTAR E INICIAR ') //con el espacio
+                    {
+
+                        //header("Location: index.php?sientra");
+
+                        //variables//
+                        $id = $row_data['id'];
+                        $inicio = date("Y-m-d H:i:s");
+                        $maquina_id = $row_data['maquina_id'];
+                        $maquina_nombre = $row_data['maquina_nombre'];
+                        $planta_id = $row_data['planta_id'];
+                        $departamento_id = $row_data['departamento_id'];
+                        $maquina_centro_trabajo = $row_data['maquina_centro_trabajo'];
+                        $maquina_serie = $row_data['maquina_serie'];
+                        $maquina_numero_control = $row_data['maquina_numero_control'];
+                        $info_departamento = $row_data['info_departamento'];
+                        $tipo_error = 'producto';
+                        $descripcion_operador = 'REVISION DE PIEZAS';
+                        $planta_nombre = $row_data['planta_nombre'];
+                        $departamento_nombre = $row_data['departamento_nombre'];
+                        //$atendio = '';
+                        //$resolvio = '';
+                        $parte = $row_data['parte'];
+                        $orden = $row_data['orden'];
+                        $escala_1 = 'si';
+
+
+                        //varialbes end//
+
+                        $query_2 = "INSERT INTO martech_fallas (inicio, offline, maquina_id, maquina_nombre, planta_id, departamento_id,  maquina_centro_trabajo, 
+                        maquina_serie, maquina_numero_control,  tipo_error, descripcion_operador, planta_nombre, departamento_nombre, escala_1, info_departamento, 
+                        parte, orden)
+                        VALUES ('$inicio', 'si', $maquina_id, '$maquina_nombre', $planta_id, $departamento_id,  '$maquina_centro_trabajo', '$maquina_serie', 
+                        '$maquina_numero_control',  '$tipo_error', '$descripcion_operador', '$planta_nombre', '$departamento_nombre','si', '$info_departamento', 
+                        '$parte', '$orden')";
+
+                        $result_2 = mysqli_query($connection, $query_2);
+
+
+                        $myfile = fopen("errorlog2.txt", "w") or die("Unable to open file!");
+                        $txt = "Q:\n $query_2\n\n";
+                        fwrite($myfile, $txt);
+                        fclose($myfile);
+
+
+
+                    }
+
+
+
+
+
+                    header("Location: index.php?page=error_atender_resolver&id=$id&atencion=true&error=false&masdatos=$opcion");
+
                 }
                 else
                 {

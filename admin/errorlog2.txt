@@ -1,0 +1,9 @@
+Q:
+ INSERT INTO martech_fallas (inicio, offline, maquina_id, maquina_nombre, planta_id, departamento_id,  maquina_centro_trabajo, 
+                        maquina_serie, maquina_numero_control,  tipo_error, descripcion_operador, planta_nombre, departamento_nombre, escala_1, info_departamento, 
+                        parte, orden)
+                        VALUES ('2022-07-13 10:57:21', 'si', 91, 'BOY MOLDING MACHINE 22 MVH (BOY 20)', 2, 1008,  'BOY20', '38319', 
+                        'MA30-38319',  'producto', 'REVISION DE PIEZAS', 'MM2', 'Long Term','si', '  
+ Capturado por: Jesica Guadalupe Ruiz Villagrana ', 
+                        'n111', 'o111')
+
